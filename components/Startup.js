@@ -2,9 +2,21 @@ const kCID  = Components.ID('{fa181330-77e9-11dd-ad8b-0800200c9a66}');
 const kID   = '@clear-code.com/retentionsettingcontroller/startup;1';
 const kNAME = "Retention Setting Controller Service";
 
+const DEBUG = true;
+
+function mydump()
+{
+	if (DEBUG)
+		dump(Arrays.slice(arguments).join('\n').replace(/\n$/, '')+'\n');
+}
+
 const ObserverService = Components
 		.classes['@mozilla.org/observer-service;1']
 		.getService(Components.interfaces.nsIObserverService);
+
+var Prefs = Components
+		.classes['@mozilla.org/preferences;1']
+		.getService(Components.interfaces.nsIPrefBranch);
  
 function StartupService() { 
 }
@@ -47,7 +59,7 @@ StartupService.prototype = {
 			try {
 				server = servers.GetElementAt(i)
 					.QueryInterface(Components.interfaces.nsIMsgIncomingServer);
-				this.scanFolder(server.rootFolder);
+				this.scanFolder(server.rootFolder, false);
 			}
 			catch(e) {
 				dump(e+'\n');
@@ -55,12 +67,23 @@ StartupService.prototype = {
 		}
 	},
 
-	scanFolder : function(aFolder)
+	scanFolder : function(aFolder, aInheritParent)
 	{
 		if (aFolder.folderURL in this.done) return;
-dump(aFolder.prettiestName+'\n');
-dump('  '+aFolder.folderURL+'\n');
+mydump(aFolder.prettiestName);
 		this.done[aFolder.folderURL] = true;
+
+		if (this.targetNamePattern.test(aFolder.prettiestName)) {
+			aInheritParent = true;
+mydump('  set custom setting to '+aFolder.prettiestName);
+		}
+		else if (aInheritParent && this.inheritFromParent) {
+mydump('  set parent setting to '+aFolder.prettiestName);
+		}
+		else if (this.disableForNotMatchedFolders && aFolder.retentionSettings) {
+mydump('  disable custom setting of '+aFolder.prettiestName);
+			aFolder.retentionSettings.useServerDefaults = true;
+		}
 
 		var children = aFolder.getAllFoldersWithFlag(0);
 		var folder;
@@ -69,7 +92,7 @@ dump('  '+aFolder.folderURL+'\n');
 			try {
 				folder = children.GetElementAt(i)
 					.QueryInterface(Components.interfaces.nsIMsgFolder);
-				arguments.callee.call(this, folder);
+				arguments.callee.call(this, folder, aInheritParent);
 			}
 			catch(e) {
 				dump(e+'\n');
@@ -77,6 +100,52 @@ dump('  '+aFolder.folderURL+'\n');
 		}
 	},
 	done : {},
+
+	isDifferentSetting : function(aBase, aTarget)
+	{
+		if (!aTarget) return false;
+		var props = [
+				'useServerDefaults',
+				'retainByPreference',
+				'daysToKeepHdrs',
+				'numHeadersToKeep',
+				'keepUnreadMessagesOnly',
+				'cleanupBodiesByDays',
+				'daysToKeepBodies'
+			];
+		return props.some(function(aProp) {
+				return aBase[aProp] != aTarget[aProp];
+			});
+	},
+
+	get targetNamePattern()
+	{
+		if (this._targetNamePattern === null) {
+			var regexp = Prefs.getCharPref('extensions.retentionsettingcontroller.targetPatterns.name');
+			regexp = decodeURIComponent(escape(regexp));
+			if (!regexp) regexp = '[^\\w\\W]';
+			this._targetNamePattern = new RegExp(regexp, 'i');
+		}
+		return this._targetNamePattern;
+	},
+	_targetNamePattern : null,
+
+	get inheritFromParent()
+	{
+		if (this._inheritFromParent === null)
+			this._inheritFromParent = Prefs.getBoolPref('extensions.retentionsettingcontroller.inheritFromParent');
+		return this._inheritFromParent;
+	},
+	_inheritFromParent : null,
+
+	get disableForNotMatchedFolders()
+	{
+		if (this._disableForNotMatchedFolders === null)
+			this._disableForNotMatchedFolders = Prefs.getBoolPref('extensions.retentionsettingcontroller.disableForNotMatchedFolders');
+		return this._disableForNotMatchedFolders;
+	},
+	_disableForNotMatchedFolders : null,
+
   
 	QueryInterface : function(aIID) 
 	{
