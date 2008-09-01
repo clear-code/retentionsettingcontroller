@@ -38,6 +38,11 @@ StartupService.prototype = {
 				}
 				return;
 
+			case 'retentionsettingcontroller:folderChanged':
+				aSubject = aSubject.QueryInterface(Components.interfaces.nsIMsgFolder);
+				this.updateFolder(aSubject);
+				return;
+
 			case 'quit-application':
 				ObserverService.removeObserver(this, 'retentionsettingcontroller:messengerStartup');
 				ObserverService.removeObserver(this, 'quit-application');
