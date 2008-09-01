@@ -23,6 +23,16 @@ function createSettingsStab()
 			keepUnreadMessagesOnly : true,
 			cleanupBodiesByDays    : true,
 			daysToKeepBodies       : 60
+		},
+		{
+			pattern                : '',
+			useServerDefaults      : true,
+			retainByPreference     : 0,
+			daysToKeepHdrs         : 60,
+			numHeadersToKeep       : 200,
+			keepUnreadMessagesOnly : true,
+			cleanupBodiesByDays    : true,
+			daysToKeepBodies       : 60
 		}
 	];
 }
@@ -64,9 +74,13 @@ function testParseCustomSettings()
 	var settings = createSettingsStab();
 	settings = settings.toSource();
 	var parsed = service.parseCustomSettings(settings);
-	assert.equals(2, parsed.length);
+	assert.equals(3, parsed.length);
 	assert.pattern('子1', parsed[0].pattern);
 	assert.notPattern('子2', parsed[0].pattern);
 	assert.pattern('孫3', parsed[1].pattern);
 	assert.notPattern('孫2', parsed[1].pattern);
+	assert.notPattern('ルート', parsed[2].pattern);
 }
+
+
+
