@@ -4,6 +4,8 @@ function FolderStab(aName) {
 }
 FolderStab.prototype = {
 	prettiestName     : '',
+	parent            : null,
+	parentMsgFolder   : null,
 	retentionSettings : null,
 	GetSubFolders : function()
 	{
@@ -39,6 +41,8 @@ FolderStab.prototype = {
 	_appendChild : function(aFolder)
 	{
 		this._children.push(aFolder);
+		aFolder.parent = this;
+		aFolder.parentMsgFolder = this;
 		return aFolder;
 	}
 };
