@@ -1,34 +1,30 @@
 function FolderStab(aName) {
 	this.prettiestName = aName;
+	this._children = [];
 }
 FolderStab.prototype = {
 	prettiestName     : '',
 	retentionSettings : null,
 	GetSubFolders : function()
 	{
+		utils.log('GetSubFolders');
 		return {
 			_owner : this,
-			get _items() {
-				this._owner._children;
-			},
 			_index : 0,
-			get _count() {
-				return this._items.length;
-			},
 			first : function() {
-				if (!this._count)
+				if (!this._owner._children.length)
 					throw 'there is no item.';
 			},
 			next : function() {
 				this.isDone();
-				this.index++;
+				this._index++;
 			},
 			isDone : function() {
-				if (this._index == this._count-1)
+				if (this._index == this._owner._children.length-1)
 					throw 'this is done.';
 			},
 			currentItem : function() {
-				return this._items[this._index];
+				return this._owner._children[this._index];
 			}
 		};
 	},
