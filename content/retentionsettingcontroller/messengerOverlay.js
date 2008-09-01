@@ -15,7 +15,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
 	eval('window.RenameFolder = '+window.RenameFolder.toSource().replace(
 		/RenameFolder\([^;]+\);/,
-		'$& retentionsettingcontrollerNotifyChange(uri.replace(/\/[^\\/]+$/, ""), name);'
+		'$& retentionsettingcontrollerNotifyChange(uri.replace(/\\/[^\\/]+$/, ""), name);'
 	));
 
 	eval('window.DropOnFolderTree = '+window.DropOnFolderTree.toSource().replace(

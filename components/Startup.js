@@ -29,6 +29,7 @@ StartupService.prototype = {
 			case 'app-startup':
 				ObserverService.addObserver(this, 'quit-application', false);
 				ObserverService.addObserver(this, 'retentionsettingcontroller:messengerStartup', false);
+				ObserverService.addObserver(this, 'retentionsettingcontroller:folderChanged', false);
 				return;
 
 			case 'retentionsettingcontroller:messengerStartup':
@@ -45,6 +46,7 @@ StartupService.prototype = {
 
 			case 'quit-application':
 				ObserverService.removeObserver(this, 'retentionsettingcontroller:messengerStartup');
+				ObserverService.removeObserver(this, 'retentionsettingcontroller:folderChanged');
 				ObserverService.removeObserver(this, 'quit-application');
 				return;
 		}
@@ -95,7 +97,7 @@ mydump(aFolder.prettiestName);
 			}
 if (setting) mydump('  inherit parent setting to '+aFolder.prettiestName);
 		}
-		if (setting || setting = this.getMatchedSettings(aFolder)) {
+		if (setting || (setting = this.getMatchedSettings(aFolder))) {
 			aInheritParent = true;
 mydump('  set custom setting to '+aFolder.prettiestName);
 		}
