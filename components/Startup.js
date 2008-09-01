@@ -40,7 +40,7 @@ StartupService.prototype = {
 
 			case 'retentionsettingcontroller:folderChanged':
 				aSubject = aSubject.QueryInterface(Components.interfaces.nsIMsgFolder);
-				this.updateFolder(aSubject);
+				this.updateFolderByName(aSubject, aData);
 				return;
 
 			case 'quit-application':
@@ -85,13 +85,7 @@ StartupService.prototype = {
 	{
 mydump(aFolder.prettiestName);
 		var setting;
-		if (this.customSettings.some(function(aSetting) {
-				if (aSetting.pattern.test(aFolder.prettiestName)) {
-					setting = aSetting;
-					return true;
-				}
-				return false;
-			})) {
+		if (setting = this.getMatchedSettings(aFolder)) {
 			aInheritParent = true;
 mydump('  set custom setting to '+aFolder.prettiestName);
 		}
@@ -103,12 +97,34 @@ mydump('  disable custom setting of '+aFolder.prettiestName);
 			aFolder.retentionSettings.useServerDefaults = true;
 		}
 
+		var children = this.getChildFolders(aFolder);
+		children.forEach(function(aChildFolder) {
+			this.updateFolder(aChildFolder, aInheritParent);
+		}, this);
+	},
+	getMatchedSettings : function(aFolder)
+	{
+		var name = aFolder.prettiestName;
+		var setting = null;
+		this.customSettings.some(function(aSetting) {
+			if (aSetting.pattern.test(name)) {
+				setting = aSetting;
+				return true;
+			}
+			return false;
+		});
+		return setting;
+	},
+	getChildFolders : function(aFolder)
+	{
+		var retVal = [];
+
 		var children = aFolder.GetSubFolders();
 		try {
 			children.first();
 		}
 		catch(e) {
-			return; // there is no item.
+			return retVal; // there is no item.
 		}
 
 		var folder;
@@ -117,7 +133,7 @@ mydump('  disable custom setting of '+aFolder.prettiestName);
 			try {
 				folder = children.currentItem()
 					.QueryInterface(Components.interfaces.nsIMsgFolder);
-				arguments.callee.call(this, folder, aInheritParent);
+				retVal.push(folder);
 			}
 			catch(e) {
 				dump(e+'\n');
@@ -129,6 +145,23 @@ mydump('  disable custom setting of '+aFolder.prettiestName);
 				break; // no more item.
 			}
 		}
+		return retVal;
+	},
+
+	updateFolderByName : function(aFolder, aName)
+	{
+		if (!aName) {
+			this.updateFolder(aFolder);
+			return;
+		}
+		var children = this.getChildFolders(aFolder);
+		children.some(function(aChildFolder) {
+			if (aChildFolder.prettiestName == aName) {
+				this.updateFolder(aChildFolder);
+				return true;
+			}
+			return false;
+		}, this);
 	},
 
 	get customSettings()
@@ -187,6 +220,7 @@ mydump('  disable custom setting of '+aFolder.prettiestName);
 		return aValue;
 	},
 	_disableForNotMatchedFolders : null,
+
 
 	QueryInterface : function(aIID) 
 	{
