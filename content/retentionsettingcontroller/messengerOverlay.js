@@ -5,5 +5,5 @@ window.addEventListener('DOMContentLoaded', function() {
 			.classes['@mozilla.org/observer-service;1']
 			.getService(Components.interfaces.nsIObserverService);
 
-	ObserverService.notifyObservers(window, 'retensionsettingcontroller:messengerStartup', null);
+	ObserverService.notifyObservers(window, 'retentionsettingcontroller:messengerStartup', null);
 }, false);

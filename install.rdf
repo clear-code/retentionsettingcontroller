@@ -3,10 +3,10 @@
          xmlns:NC="http://home.netscape.com/NC-rdf#"
          xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
   <RDF:Description RDF:about="urn:mozilla:install-manifest"
-                   em:id="retensionsettingcontroller@clear-code.com"
-                   em:name="Retension Setting Controller"
+                   em:id="retentionsettingcontroller@clear-code.com"
+                   em:name="Retention Setting Controller"
                    em:version="0.1"
-                   em:description="Cotrols retension settings of folders."
+                   em:description="Cotrols retention settings of folders."
                    em:creator="ClearCode Inc."
                    em:homepageURL="http://www.clear-code.com/">
 

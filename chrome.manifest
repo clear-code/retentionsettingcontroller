@@ -1,3 +1,3 @@
-content	retensionsettingcontroller	jar:chrome/retensionsettingcontroller.jar!/content/retensionsettingcontroller/
+content	retentionsettingcontroller	jar:chrome/retentionsettingcontroller.jar!/content/retentionsettingcontroller/
 
-overlay	chrome://messenger/content/messenger.xul	chrome://retensionsettingcontroller/content/messengerOverlay.xul
+overlay	chrome://messenger/content/messenger.xul	chrome://retentionsettingcontroller/content/messengerOverlay.xul

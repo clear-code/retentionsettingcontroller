@@ -1,6 +1,6 @@
 const kCID  = Components.ID('{fa181330-77e9-11dd-ad8b-0800200c9a66}'); 
-const kID   = '@clear-code.com/retensionsettingcontroller/startup;1';
-const kNAME = "Retension Setting Controller Service";
+const kID   = '@clear-code.com/retentionsettingcontroller/startup;1';
+const kNAME = "Retention Setting Controller Service";
 
 const ObserverService = Components
 		.classes['@mozilla.org/observer-service;1']
@@ -16,10 +16,10 @@ StartupService.prototype = {
 		{
 			case 'app-startup':
 				ObserverService.addObserver(this, 'quit-application', false);
-				ObserverService.addObserver(this, 'retensionsettingcontroller:messengerStartup', false);
+				ObserverService.addObserver(this, 'retentionsettingcontroller:messengerStartup', false);
 				return;
 
-			case 'retensionsettingcontroller:messengerStartup':
+			case 'retentionsettingcontroller:messengerStartup':
 				if (this.onStartup) {
 					this.onStartup = false;
 					this.scanAllFolders(aSubject);
@@ -27,7 +27,7 @@ StartupService.prototype = {
 				return;
 
 			case 'quit-application':
-				ObserverService.removeObserver(this, 'retensionsettingcontroller:messengerStartup');
+				ObserverService.removeObserver(this, 'retentionsettingcontroller:messengerStartup');
 				ObserverService.removeObserver(this, 'quit-application');
 				return;
 		}
