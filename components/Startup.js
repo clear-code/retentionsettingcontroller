@@ -85,12 +85,19 @@ StartupService.prototype = {
 	{
 mydump(aFolder.prettiestName);
 		var setting;
-		if (setting = this.getMatchedSettings(aFolder)) {
+		if (aInheritParent && this.inheritFromParent) {
+			var parent = aFolder.parentMsgFolder;
+			while (parent)
+			{
+				setting = this.getMatchedSettings(parent)
+				if (setting) break;
+				parent = parent.parentMsgFolder;
+			}
+if (setting) mydump('  inherit parent setting to '+aFolder.prettiestName);
+		}
+		if (setting || setting = this.getMatchedSettings(aFolder)) {
 			aInheritParent = true;
 mydump('  set custom setting to '+aFolder.prettiestName);
-		}
-		else if (aInheritParent && this.inheritFromParent) {
-mydump('  set parent setting to '+aFolder.prettiestName);
 		}
 		else if (this.disableForNotMatchedFolders && aFolder.retentionSettings) {
 mydump('  disable custom setting of '+aFolder.prettiestName);
@@ -151,13 +158,13 @@ mydump('  disable custom setting of '+aFolder.prettiestName);
 	updateFolderByName : function(aFolder, aName)
 	{
 		if (!aName) {
-			this.updateFolder(aFolder);
+			this.updateFolder(aFolder, true);
 			return;
 		}
 		var children = this.getChildFolders(aFolder);
 		children.some(function(aChildFolder) {
 			if (aChildFolder.prettiestName == aName) {
-				this.updateFolder(aChildFolder);
+				this.updateFolder(aChildFolder, true);
 				return true;
 			}
 			return false;
