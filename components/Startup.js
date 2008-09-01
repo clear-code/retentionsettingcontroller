@@ -70,7 +70,14 @@ StartupService.prototype = {
 	updateFolder : function(aFolder, aInheritParent)
 	{
 mydump(aFolder.prettiestName);
-		if (this.targetNamePattern.test(aFolder.prettiestName)) {
+		var setting;
+		if (this.customSettings.some(function(aSetting) {
+				if (aSetting.pattern.test(aFolder.prettiestName)) {
+					setting = aSetting;
+					return true;
+				}
+				return false;
+			})) {
 			aInheritParent = true;
 mydump('  set custom setting to '+aFolder.prettiestName);
 		}
@@ -127,17 +134,26 @@ mydump('  disable custom setting of '+aFolder.prettiestName);
 			});
 	},
 
-	get targetNamePattern()
+	get customSettings()
 	{
-		if (this._targetNamePattern === null) {
-			var regexp = Prefs.getCharPref('extensions.retentionsettingcontroller.targetPatterns.name');
-			regexp = decodeURIComponent(escape(regexp));
-			if (!regexp) regexp = '[^\\w\\W]';
-			this._targetNamePattern = new RegExp(regexp, 'i');
+		if (this._customSettings === null) {
+			var data = Prefs.getCharPref('extensions.retentionsettingcontroller.settings');
+			data = decodeURIComponent(escape(data));
+			try {
+				this._customSettings = eval(data);
+			}
+			catch(e) {
+				this._customSettings = [];
+			}
+			this._customSettings.forEach(function(aSetting) {
+				var regexp = aSetting.pattern;
+				if (!regexp) regexp = '[^\\w\\W]';
+				aSetting.pattern = new RegExp(regexp, 'i');
+			});
 		}
-		return this._targetNamePattern;
+		return this._customSettings;
 	},
-	_targetNamePattern : null,
+	_customSettings : null,
 
 	get inheritFromParent()
 	{
