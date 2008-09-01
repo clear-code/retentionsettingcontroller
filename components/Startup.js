@@ -125,6 +125,11 @@ mydump('  disable custom setting of '+aFolder.prettiestName);
 		}
 		return this._customSettings;
 	},
+	set customSettings(aValue)
+	{
+		this._customSettings = aValue;
+		return aValue;
+	},
 	_customSettings : null,
 	parseCustomSettings : function(aJSON)
 	{
@@ -149,6 +154,11 @@ mydump('  disable custom setting of '+aFolder.prettiestName);
 			this._inheritFromParent = Prefs.getBoolPref('extensions.retentionsettingcontroller.inheritFromParent');
 		return this._inheritFromParent;
 	},
+	set inheritFromParent(aValue)
+	{
+		this._inheritFromParent = aValue;
+		return aValue;
+	},
 	_inheritFromParent : null,
 
 	get disableForNotMatchedFolders()
@@ -156,6 +166,11 @@ mydump('  disable custom setting of '+aFolder.prettiestName);
 		if (this._disableForNotMatchedFolders === null)
 			this._disableForNotMatchedFolders = Prefs.getBoolPref('extensions.retentionsettingcontroller.disableForNotMatchedFolders');
 		return this._disableForNotMatchedFolders;
+	},
+	set disableForNotMatchedFolders(aValue)
+	{
+		this._disableForNotMatchedFolders = aValue;
+		return aValue;
 	},
 	_disableForNotMatchedFolders : null,
 
