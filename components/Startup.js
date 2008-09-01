@@ -70,7 +70,6 @@ StartupService.prototype = {
 	updateFolder : function(aFolder, aInheritParent)
 	{
 mydump(aFolder.prettiestName);
-
 		if (this.targetNamePattern.test(aFolder.prettiestName)) {
 			aInheritParent = true;
 mydump('  set custom setting to '+aFolder.prettiestName);
@@ -88,7 +87,7 @@ mydump('  disable custom setting of '+aFolder.prettiestName);
 			children.first();
 		}
 		catch(e) {
-			return;
+			return; // there is no item.
 		}
 
 		var folder;
@@ -106,7 +105,7 @@ mydump('  disable custom setting of '+aFolder.prettiestName);
 				children.next();
 			}
 			catch(e) {
-				break; // end of roop
+				break; // no more item.
 			}
 		}
 	},
