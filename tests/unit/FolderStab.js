@@ -7,7 +7,6 @@ FolderStab.prototype = {
 	retentionSettings : null,
 	GetSubFolders : function()
 	{
-		utils.log('GetSubFolders');
 		return {
 			_owner : this,
 			_index : 0,
