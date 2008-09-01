@@ -86,18 +86,20 @@ StartupService.prototype = {
 	updateFolder : function(aFolder, aInheritParent)
 	{
 mydump(aFolder.prettiestName);
-		var setting;
+		var inheritedSetting;
 		if (aInheritParent && this.inheritFromParent) {
 			var parent = aFolder.parentMsgFolder;
 			while (parent)
 			{
-				setting = this.getMatchedSettings(parent)
-				if (setting) break;
+				inheritedSetting = this.getMatchedSettings(parent)
+				if (inheritedSetting) break;
 				parent = parent.parentMsgFolder;
 			}
 if (setting) mydump('  inherit parent setting to '+aFolder.prettiestName);
 		}
-		if (setting || (setting = this.getMatchedSettings(aFolder))) {
+		var setting;
+		if ((setting = this.getMatchedSettings(aFolder)) || inheritedSetting) {
+			if (!setting) setting = inheritedSetting;
 			aInheritParent = true;
 mydump('  set custom setting to '+aFolder.prettiestName);
 		}
