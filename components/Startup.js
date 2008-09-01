@@ -117,43 +117,31 @@ mydump('  disable custom setting of '+aFolder.prettiestName);
 		}
 	},
 
-	isDifferentSetting : function(aBase, aTarget)
-	{
-		if (!aTarget) return false;
-		var props = [
-				'useServerDefaults',
-				'retainByPreference',
-				'daysToKeepHdrs',
-				'numHeadersToKeep',
-				'keepUnreadMessagesOnly',
-				'cleanupBodiesByDays',
-				'daysToKeepBodies'
-			];
-		return props.some(function(aProp) {
-				return aBase[aProp] != aTarget[aProp];
-			});
-	},
-
 	get customSettings()
 	{
 		if (this._customSettings === null) {
-			var data = Prefs.getCharPref('extensions.retentionsettingcontroller.settings');
-			data = decodeURIComponent(escape(data));
-			try {
-				this._customSettings = eval(data);
-			}
-			catch(e) {
-				this._customSettings = [];
-			}
-			this._customSettings.forEach(function(aSetting) {
-				var regexp = aSetting.pattern;
-				if (!regexp) regexp = '[^\\w\\W]';
-				aSetting.pattern = new RegExp(regexp, 'i');
-			});
+			var settings = Prefs.getCharPref('extensions.retentionsettingcontroller.settings');
+			this._customSettings = parseCustomSettings(decodeURIComponent(escape(settings)));
 		}
 		return this._customSettings;
 	},
 	_customSettings : null,
+	parseCustomSettings : function(aJSON)
+	{
+		var settings;
+		try {
+			settings = eval(aJSON);
+		}
+		catch(e) {
+			settings = [];
+		}
+		settings.forEach(function(aSetting) {
+			var regexp = aSetting.pattern;
+			if (!regexp) regexp = '[^\\w\\W]';
+			aSetting.pattern = new RegExp(regexp, 'i');
+		});
+		return settings;
+	},
 
 	get inheritFromParent()
 	{
