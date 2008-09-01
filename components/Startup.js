@@ -34,7 +34,7 @@ StartupService.prototype = {
 			case 'retentionsettingcontroller:messengerStartup':
 				if (this.onStartup) {
 					this.onStartup = false;
-					this.scanAllFolders(aSubject);
+					this.updateAllFolders();
 				}
 				return;
 
@@ -51,25 +51,34 @@ StartupService.prototype = {
 	},
 	onStartup : true,
 
-	scanAllFolders : function(aWindow)
+	get servers()
 	{
 		var accountManager = Components
 				.classes['@mozilla.org/messenger/account-manager;1']
 				.getService(Components.interfaces.nsIMsgAccountManager);
 		var servers = accountManager.allServers;
 
+		var retVal = [];
 		var server;
 		for (var i = 0, maxi = servers.Count(); i < maxi; i++)
 		{
 			try {
 				server = servers.GetElementAt(i)
 					.QueryInterface(Components.interfaces.nsIMsgIncomingServer);
-				this.updateFolder(server.rootFolder, false);
+				retVal.push(server);
 			}
 			catch(e) {
 				dump(e+'\n');
 			}
 		}
+		return retVal;
+	},
+
+	updateAllFolders : function()
+	{
+		this.servers.forEach(function(aServer) {
+			this.updateFolder(aServer.rootFolder, false);
+		}, this);
 	},
 
 	updateFolder : function(aFolder, aInheritParent)
@@ -126,7 +135,7 @@ mydump('  disable custom setting of '+aFolder.prettiestName);
 	{
 		if (this._customSettings === null) {
 			var settings = Prefs.getCharPref('extensions.retentionsettingcontroller.settings');
-			this._customSettings = parseCustomSettings(decodeURIComponent(escape(settings)));
+			this._customSettings = this.parseCustomSettings(decodeURIComponent(escape(settings)));
 		}
 		return this._customSettings;
 	},
@@ -179,7 +188,6 @@ mydump('  disable custom setting of '+aFolder.prettiestName);
 	},
 	_disableForNotMatchedFolders : null,
 
-  
 	QueryInterface : function(aIID) 
 	{
 		if(!aIID.equals(Components.interfaces.nsIObserver) &&
