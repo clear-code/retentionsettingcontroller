@@ -70,9 +70,6 @@ StartupService.prototype = {
 	updateFolder : function(aFolder, aInheritParent)
 	{
 mydump(aFolder.prettiestName);
-		if (aFolder.folderURL in this.done) return;
-mydump(aFolder.prettiestName);
-		this.done[aFolder.folderURL] = true;
 
 		if (this.targetNamePattern.test(aFolder.prettiestName)) {
 			aInheritParent = true;
@@ -86,21 +83,33 @@ mydump('  disable custom setting of '+aFolder.prettiestName);
 			aFolder.retentionSettings.useServerDefaults = true;
 		}
 
-		var children = aFolder.getAllFoldersWithFlag(0);
+		var children = aFolder.GetSubFolders();
+		try {
+			children.first();
+		}
+		catch(e) {
+			return;
+		}
+
 		var folder;
-		for (var i = 0, maxi = children.Count(); i < maxi; i++)
+		while (true)
 		{
 			try {
-				folder = children.GetElementAt(i)
+				folder = children.currentItem()
 					.QueryInterface(Components.interfaces.nsIMsgFolder);
 				arguments.callee.call(this, folder, aInheritParent);
 			}
 			catch(e) {
 				dump(e+'\n');
 			}
+			try {
+				children.next();
+			}
+			catch(e) {
+				break; // end of roop
+			}
 		}
 	},
-	done : {},
 
 	isDifferentSetting : function(aBase, aTarget)
 	{
