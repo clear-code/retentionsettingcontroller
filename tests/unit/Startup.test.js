@@ -8,15 +8,15 @@ function createSettingsStab()
 			pattern                : '子1',
 			useServerDefaults      : false,
 			retainByPreference     : 0,
-			daysToKeepHdrs         : 30,
-			numHeadersToKeep       : 100,
+			daysToKeepHdrs         : 3,
+			numHeadersToKeep       : 1,
 			keepUnreadMessagesOnly : false,
 			cleanupBodiesByDays    : false,
-			daysToKeepBodies       : 30
+			daysToKeepBodies       : 3
 		},
 		{
 			pattern                : '孫[34]',
-			useServerDefaults      : true,
+			useServerDefaults      : false,
 			retainByPreference     : 0,
 			daysToKeepHdrs         : 60,
 			numHeadersToKeep       : 200,
@@ -52,13 +52,10 @@ function createFolderStab()
 	return folder;
 }
 
-var folder;
 var service;
 
 function setUp()
 {
-	folder = createFolderStab();
-
 	service = new StartupService();
 	service.customSettings = [];
 	service.inheritFromParent = true;
@@ -82,5 +79,42 @@ function testParseCustomSettings()
 	assert.notPattern('ルート', parsed[2].pattern);
 }
 
+function testUpdateFolder()
+{
+	service.customSettings = service.parseCustomSettings(createSettingsStab().toSource());
 
+	var folder = createFolderStab();
+	service.updateFolder(folder);
+
+	var settings = folder.retentionSettings;
+	assert.isTrue(settings.useServerDefaults);
+
+	settings = folder._children[0].retentionSettings;
+	assert.isFalse(settings.useServerDefaults);
+	assert.equals(3, settings.daysToKeepHdrs);
+	assert.equals(1, settings.numHeadersToKeep);
+
+	settings = folder._children[0]._children[0].retentionSettings;
+	assert.isFalse(settings.useServerDefaults);
+	assert.equals(3, settings.daysToKeepHdrs);
+	assert.equals(1, settings.numHeadersToKeep);
+
+	settings = folder._children[0]._children[1].retentionSettings;
+	assert.isFalse(settings.useServerDefaults);
+	assert.equals(3, settings.daysToKeepHdrs);
+	assert.equals(1, settings.numHeadersToKeep);
+
+	settings = folder._children[1].retentionSettings;
+	assert.isTrue(settings.useServerDefaults);
+
+	settings = folder._children[1]._children[0].retentionSettings;
+	assert.isFalse(settings.useServerDefaults);
+	assert.equals(60, settings.daysToKeepHdrs);
+	assert.equals(200, settings.numHeadersToKeep);
+
+	settings = folder._children[1]._children[1].retentionSettings;
+	assert.isFalse(settings.useServerDefaults);
+	assert.equals(60, settings.daysToKeepHdrs);
+	assert.equals(200, settings.numHeadersToKeep);
+}
 
