@@ -7,7 +7,7 @@ const DEBUG = true;
 function mydump()
 {
 	if (DEBUG)
-		dump(Arrays.slice(arguments).join('\n').replace(/\n$/, '')+'\n');
+		dump(Array.slice(arguments).join('\n').replace(/\n$/, '')+'\n');
 }
 
 const ObserverService = Components
@@ -59,7 +59,7 @@ StartupService.prototype = {
 			try {
 				server = servers.GetElementAt(i)
 					.QueryInterface(Components.interfaces.nsIMsgIncomingServer);
-				this.scanFolder(server.rootFolder, false);
+				this.updateFolder(server.rootFolder, false);
 			}
 			catch(e) {
 				dump(e+'\n');
@@ -67,8 +67,9 @@ StartupService.prototype = {
 		}
 	},
 
-	scanFolder : function(aFolder, aInheritParent)
+	updateFolder : function(aFolder, aInheritParent)
 	{
+mydump(aFolder.prettiestName);
 		if (aFolder.folderURL in this.done) return;
 mydump(aFolder.prettiestName);
 		this.done[aFolder.folderURL] = true;
