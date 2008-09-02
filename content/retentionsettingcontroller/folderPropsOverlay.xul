@@ -1,0 +1,5 @@
+﻿<?xml version="1.0"?>
+<overlay id="folderProps-overlay"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<script src="chrome://retentionsettingcontroller/content/folderPropsOverlay.js"/>
+</overlay>

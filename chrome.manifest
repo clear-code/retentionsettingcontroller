@@ -1,3 +1,4 @@
 content	retentionsettingcontroller	jar:chrome/retentionsettingcontroller.jar!/content/retentionsettingcontroller/
 
 overlay	chrome://messenger/content/messenger.xul	chrome://retentionsettingcontroller/content/messengerOverlay.xul
+overlay	chrome://messenger/content/folderProps.xul	chrome://retentionsettingcontroller/content/folderPropsOverlay.xul
