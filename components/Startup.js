@@ -2,7 +2,7 @@ const kCID  = Components.ID('{fa181330-77e9-11dd-ad8b-0800200c9a66}');
 const kID   = '@clear-code.com/retentionsettingcontroller/startup;1';
 const kNAME = "Retention Setting Controller Service";
 
-const DEBUG = true;
+const DEBUG = false;
 
 function mydump()
 {
