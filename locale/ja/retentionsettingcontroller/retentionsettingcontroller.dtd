@@ -1,0 +1,17 @@
+<!ENTITY add                              "＋">
+<!ENTITY add.tooltiptext                  "新しい設定を追加する">
+<!ENTITY remove                           "×">
+<!ENTITY remove.tooltiptext               "この設定を削除する">
+<!ENTITY pattern                          "設定を適用するフォルダの名前：">
+<!ENTITY pattern.desc                     "※正規表現で指定してください">
+<!ENTITY desc                             "古いメッセージを恒久的に削除してディスク領域を開放できます。">
+<!ENTITY retainByPreference.1             "メッセージを自動削除しない">
+<!ENTITY retainByPreference.1.accesskey   "A">
+<!ENTITY retainByPreference.3             "次の数のメッセージを残して削除する">
+<!ENTITY retainByPreference.3.accesskey   "l">
+<!ENTITY numHeadersToKeep                 "メッセージ">
+<!ENTITY retainByPreference.2             "送信日時から次の日数以上経過したメッセージを削除する">
+<!ENTITY retainByPreference.2.accesskey   "m">
+<!ENTITY daysToKeepHdrs                   "日">
+<!ENTITY keepUnreadMessagesOnly           "既読のメッセージは常に削除する">
+<!ENTITY keepUnreadMessagesOnly.accesskey "r">

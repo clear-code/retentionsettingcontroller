@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<overlay id="config-overlay"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+<box id="container">
+	<script src="chrome://retentionsettingcontroller/content/configOverlay.js"/>
+
+	<box id="template" collapsed="true">
+		<vbox>
+			<hbox>
+				<grid>
+					<columns>
+						<column/>
+						<column flex="1"/>
+					</columns>
+					<rows>
+						<row align="center">
+							<label value="&pattern;"
+								control-prefid="pattern"/>
+							<textbox prefid="pattern"/>
+						</row>
+						<row align="center">
+							<spacer/>
+							<description>&pattern.desc;</description>
+						</row>
+					</rows>
+				</grid>
+				<vbox>
+					<toolbarbutton label="&remove;"
+						tooltiptext="&remove.tooltiptext;"/>
+					<spacer flex="1"/>
+				</vbox>
+			</hbox>
+			<vbox flex="1">
+				<radiogroup orient="vertical"
+					value="1"
+					prefid="retainByPreference">
+					<radio selected="true"
+						value="1"
+						label="&retainByPreference.1;"
+						accessley="&retainByPreference.1.accesskey;"/>
+					<hbox align="center">
+						<radio value="3"
+							label="&retainByPreference.3;"
+							accesskey="&retainByPreference.3.accesskey;"/>
+						<textbox prefid="numHeadersToKeep"
+							size="2"
+							value="30"/>
+						<label value="&numHeadersToKeep;"
+							control-prefid="numHeadersToKeep"/>
+					</hbox>
+					<hbox align="center">
+						<radio value="2"
+							label="&retainByPreference.2;"
+							accesskey="&retainByPreference.2.accesskey;"/>
+						<textbox prefid="daysToKeepHdrs"
+							size="2"
+							value="30"/>
+						<label value="&daysToKeepHdrs;"
+							control-prefid="daysToKeepHdrs"/>
+					</hbox>
+				</radiogroup>
+			</vbox>
+			<checkbox label="&keepUnreadMessagesOnly;"
+				accesskey="&keepUnreadMessagesOnly.accesskey;"
+				prefid="keepUnreadMessagesOnly"/>
+		</vbox>
+	</box>
+
+	<tabbox orient="vertical" flex="1">
+		<tabs orient="horizontal" id="tabs">
+		</tabs>
+		<tabpanels flex="1" id="tabpanels">
+		</tabpanels>
+	</tabbox>
+</box>
+
+</overlay>
