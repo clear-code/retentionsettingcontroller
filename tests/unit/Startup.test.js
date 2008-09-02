@@ -126,7 +126,7 @@ function testUpdateFolder()
 	assert.equals(1, settings.numHeadersToKeep);
 
 	settings = folder._children[1].retentionSettings;
-	assert.isTrue(settings.useServerDefaults);
+	assert.isNull(settings);
 
 	settings = folder._children[1]._children[0].retentionSettings;
 	assert.isFalse(settings.useServerDefaults);
