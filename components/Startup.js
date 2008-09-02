@@ -85,7 +85,7 @@ StartupService.prototype = {
 
 	updateFolder : function(aFolder, aInheritParent)
 	{
-mydump(aFolder.prettiestName);
+		mydump(aFolder.prettiestName);
 		var inheritedSetting;
 		if (aInheritParent && this.inheritFromParent) {
 			var parent = aFolder.parentMsgFolder;
@@ -95,16 +95,22 @@ mydump(aFolder.prettiestName);
 				if (inheritedSetting) break;
 				parent = parent.parentMsgFolder;
 			}
-if (setting) mydump('  inherit parent setting to '+aFolder.prettiestName);
 		}
 		var setting;
 		if ((setting = this.getMatchedSettings(aFolder)) || inheritedSetting) {
 			if (!setting) setting = inheritedSetting;
+			setting.useServerDefaults = false;
+			try {
+				aFolder.retentionSettings = setting;
+			}
+			catch(e) {
+				mydump(e+'\n'+uneval(setting)+'\n');
+			}
 			aInheritParent = true;
-mydump('  set custom setting to '+aFolder.prettiestName);
+			mydump('  set custom setting to '+aFolder.prettiestName);
 		}
 		else if (this.disableForNotMatchedFolders && aFolder.retentionSettings) {
-mydump('  disable custom setting of '+aFolder.prettiestName);
+			mydump('  disable custom setting of '+aFolder.prettiestName);
 			aFolder.retentionSettings.useServerDefaults = true;
 		}
 
