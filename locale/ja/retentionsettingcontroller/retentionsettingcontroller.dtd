@@ -1,7 +1,5 @@
-<!ENTITY add                              "＋">
-<!ENTITY add.tooltiptext                  "新しい設定を追加する">
-<!ENTITY remove                           "×">
-<!ENTITY remove.tooltiptext               "この設定を削除する">
+<!ENTITY add                              "新しい設定を追加">
+<!ENTITY remove                           "この設定を削除">
 <!ENTITY pattern                          "設定を適用するフォルダの名前：">
 <!ENTITY pattern.desc                     "※正規表現で指定してください">
 <!ENTITY desc                             "古いメッセージを恒久的に削除してディスク領域を開放できます。">
@@ -16,6 +14,6 @@
 <!ENTITY keepUnreadMessagesOnly           "既読のメッセージは常に削除する">
 <!ENTITY keepUnreadMessagesOnly.accesskey "r">
 
-<!ENTITY dialog.title                       "自動削除の設定">
-<!ENTITY dialog.inheritFromParent           "設定をサブフォルダに継承する">
-<!ENTITY dialog.disableForNotMatchedFolders "マッチする設定がないフォルダは常にサーバの設定に従う">
+<!ENTITY config.title                       "自動削除の設定">
+<!ENTITY config.inheritFromParent           "設定をサブフォルダに継承する">
+<!ENTITY config.disableForNotMatchedFolders "マッチする設定がないフォルダは常にサーバの設定に従う">

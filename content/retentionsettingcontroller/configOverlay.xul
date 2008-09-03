@@ -11,31 +11,23 @@
 
 	<box id="template" collapsed="true">
 		<vbox>
-			<hbox>
-				<grid>
-					<columns>
-						<column/>
-						<column flex="1"/>
-					</columns>
-					<rows>
-						<row align="center">
-							<label value="&pattern;"
-								control-prefid="pattern"/>
-							<textbox prefid="pattern"/>
-						</row>
-						<row align="center">
-							<spacer/>
-							<description>&pattern.desc;</description>
-						</row>
-					</rows>
-				</grid>
-				<vbox>
-					<toolbarbutton label="&remove;"
-						tooltiptext="&remove.tooltiptext;"
-						oncommand="RetentionSettingControllerUI.removeCurrentTab();"/>
-					<spacer flex="1"/>
-				</vbox>
-			</hbox>
+			<grid>
+				<columns>
+					<column/>
+					<column flex="1"/>
+				</columns>
+				<rows>
+					<row align="center">
+						<label value="&pattern;"
+							control-prefid="pattern"/>
+						<textbox prefid="pattern"/>
+					</row>
+					<row align="center">
+						<spacer/>
+						<description>&pattern.desc;</description>
+					</row>
+				</rows>
+			</grid>
 			<vbox flex="1">
 				<radiogroup orient="vertical"
 					value="1"
@@ -69,13 +61,17 @@
 			<checkbox label="&keepUnreadMessagesOnly;"
 				accesskey="&keepUnreadMessagesOnly.accesskey;"
 				prefid="keepUnreadMessagesOnly"/>
+			<hbox>
+				<spacer flex="1"/>
+				<button label="&remove;"
+					oncommand="RetentionSettingControllerUI.removeCurrentTab();"/>
+			</hbox>
 		</vbox>
 	</box>
 
 	<hbox>
 		<spacer flex="1"/>
-		<toolbarbutton label="&add;"
-			tooltiptext="&add.tooltiptext;"
+		<button label="&add;"
 			oncommand="RetentionSettingControllerUI.addTab();"/>
 	</hbox>
 	<tabbox orient="vertical" flex="1">

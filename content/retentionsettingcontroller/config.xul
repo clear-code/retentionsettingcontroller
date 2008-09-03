@@ -54,6 +54,9 @@ function init()
 function onChange()
 {
 	gSettingsHolder.value = RetentionSettingControllerUI.getSettings();
+	var event = document.createEvent('UIEvents');
+	event.initUIEvent('input', true, false, window, 0);
+	gSettingsHolder.dispatchEvent(event);
 }
 
 ]]></script>

@@ -134,7 +134,7 @@ var RetentionSettingControllerUI = {
 		else {
 			var tabs = aSettingsArray.map(function(aSettings) {
 					var tab = this.addTab();
-					this.setSettingToTab(tab, aSettigns);
+					this.setSettingsToTab(tab, aSettings);
 					return tab;
 				}, this);
 			this.selectedTab = tabs[0];
@@ -143,7 +143,7 @@ var RetentionSettingControllerUI = {
 
 	getSettings : function()
 	{
-		var settingsArray = Array.splice(this.tabContainer.childNodes)
+		var settingsArray = Array.slice(this.tabContainer.childNodes)
 				.map(function(aTab) {
 					return this.getSettingsFromTab(aTab);
 				}, this);
