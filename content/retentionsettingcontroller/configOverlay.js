@@ -104,7 +104,7 @@ var RetentionSettingControllerUI = {
 		};
 	},
 
-	initUIFromSettings : function(aSettingsArray)
+	initFromSettings : function(aSettingsArray)
 	{
 		try {
 			aSettingsArray = eval(aSettingsArray);
