@@ -66,6 +66,22 @@ var RetentionSettingControllerUI = {
 		this.panelContainer.removeChild(panel);
 	},
 
+	removeCurrentTab : function(aTab)
+	{
+		if (this.tabContainer.childNodes.length > 1) {
+			this.removeTab(this.selectedTab);
+		}
+		else {
+			this.setSettingsToTab(this.selectedTab, {
+				pattern                : '',
+				retainByPreference     : 1,
+				numHeadersToKeep       : 30,
+				daysToKeepHdrs         : 30,
+				keepUnreadMessagesOnly : false
+			});
+		}
+	},
+
 	getPanelFromTab : function(aTab)
 	{
 		var panel;
