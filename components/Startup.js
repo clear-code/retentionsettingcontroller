@@ -99,7 +99,7 @@ StartupService.prototype = {
 		var setting;
 		if ((setting = this.getMatchedSettings(aFolder)) || inheritedSetting) {
 			if (!setting) setting = inheritedSetting;
-			setting.useServerDefaults = false;
+			this.normalizeSettings(setting);
 			try {
 				aFolder.retentionSettings = setting;
 			}
@@ -163,6 +163,35 @@ StartupService.prototype = {
 			}
 		}
 		return retVal;
+	},
+
+	normalizeSettings : function(aSettings)
+	{
+		aSettings.useServerDefaults = false;
+
+		if (!('retainByPreference' in aSettings))
+			aSettings.retainByPreference = 1;
+		aSettings.retainByPreference = parseInt(aSettings.retainByPreference);
+
+		if (!('daysToKeepHdrs' in aSettings))
+			aSettings.daysToKeepHdrs = 30;
+		aSettings.daysToKeepHdrs = parseInt(aSettings.daysToKeepHdrs);
+
+		if (!('numHeadersToKeep' in aSettings))
+			aSettings.numHeadersToKeep = 30;
+		aSettings.numHeadersToKeep = parseInt(aSettings.numHeadersToKeep);
+
+		if (!('daysToKeepBodies' in aSettings))
+			aSettings.daysToKeepBodies = 30;
+		aSettings.daysToKeepBodies = parseInt(aSettings.daysToKeepBodies);
+
+		if (!('cleanupBodiesByDays' in aSettings))
+			aSettings.cleanupBodiesByDays = false;
+		aSettings.cleanupBodiesByDays = !(!aSettings.cleanupBodiesByDays);
+
+		if (!('keepUnreadMessagesOnly' in aSettings))
+			aSettings.keepUnreadMessagesOnly = false;
+		aSettings.keepUnreadMessagesOnly = !(!aSettings.keepUnreadMessagesOnly);
 	},
 
 	updateFolderByName : function(aFolder, aName)
