@@ -15,3 +15,7 @@
 <!ENTITY daysToKeepHdrs                   "日">
 <!ENTITY keepUnreadMessagesOnly           "既読のメッセージは常に削除する">
 <!ENTITY keepUnreadMessagesOnly.accesskey "r">
+
+<!ENTITY dialog.title                       "自動削除の設定">
+<!ENTITY dialog.inheritFromParent           "設定をサブフォルダに継承する">
+<!ENTITY dialog.disableForNotMatchedFolders "マッチする設定がないフォルダは常にサーバの設定に従う">
