@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet href="chrome://global/skin/"?>
+<?xul-overlay href="chrome://retentionsettingcontroller/content/configOverlay.xul"?>
+<!DOCTYPE prefwindow [
+<!ENTITY % mainDTD SYSTEM "chrome://retentionsettingcontroller/locale/retentionsettingcontroller.dtd">
+%mainDTD;
+]>
+<prefwindow id="retentionSettings-config"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	title="&config.title;"
+	onload="init()">
+
+<prefpane id="prefpane-general">
+	<preferences>
+		<preference id="extensions.retentionsettingcontroller.settings"
+			name="extensions.retentionsettingcontroller.settings"
+			type="string"/>
+		<preference id="extensions.retentionsettingcontroller.inheritFromParent"
+			name="extensions.retentionsettingcontroller.inheritFromParent"
+			type="bool"/>
+		<preference id="extensions.retentionsettingcontroller.disableForNotMatchedFolders"
+			name="extensions.retentionsettingcontroller.disableForNotMatchedFolders"
+			type="bool"/>
+	</preferences>
+
+	<box id="container"
+		oninput="onChange()"
+		oncommand="onChange()"/>
+
+	<checkbox id="extensions.retentionsettingcontroller.inheritFromParent-check"
+		preference="extensions.retentionsettingcontroller.inheritFromParent"
+		label="&config.inheritFromParent;"/>
+	<checkbox id="extensions.retentionsettingcontroller.disableForNotMatchedFolders-check"
+		preference="extensions.retentionsettingcontroller.disableForNotMatchedFolders"
+		label="&config.disableForNotMatchedFolders;"/>
+
+	<box collapsed="true">
+		<textbox id="extensions.retentionsettingcontroller.settings-textbox"
+			preference="extensions.retentionsettingcontroller.settings"/>
+	</box>
+</prefpane>
+
+<script type="application/x-javascript"><![CDATA[
+
+var gSettingsHolder;
+
+function init()
+{
+	gSettingsHolder = document.getElementById('extensions.retentionsettingcontroller.settings-textbox');
+	RetentionSettingControllerUI.initFromSettings(gSettingsHolder.value);
+}
+
+function onChange()
+{
+	gSettingsHolder.value = RetentionSettingControllerUI.getSettings();
+}
+
+]]></script>
+
+</prefwindow>

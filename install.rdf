@@ -8,7 +8,8 @@
                    em:version="0.1"
                    em:description="Cotrols retention settings of folders."
                    em:creator="ClearCode Inc."
-                   em:homepageURL="http://www.clear-code.com/">
+                   em:homepageURL="http://www.clear-code.com/"
+                   em:optionsURL="chrome://retentionsettingcontroller/content/config.xul">
 
 
     <!--em:updateURL></em:updateURL-->
