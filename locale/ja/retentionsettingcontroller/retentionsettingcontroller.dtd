@@ -17,3 +17,5 @@
 <!ENTITY config.title                       "自動削除の設定">
 <!ENTITY config.inheritFromParent           "設定をサブフォルダに継承する">
 <!ENTITY config.disableForNotMatchedFolders "マッチする設定がないフォルダは常にサーバの設定に従う">
+
+<!ENTITY panel.label                        "メッセージの自動削除">

@@ -4,10 +4,12 @@ window.addEventListener('DOMContentLoaded', function() {
 	if ('registerExtraPanelForPref' in window)
 		registerExtraPanelForPref(
 			[
-				'extensions.retentionsettingcontroller.settings'
+				'extensions.retentionsettingcontroller.settings',
+				'extensions.retentionsettingcontroller.inheritFromParent',
+				'extensions.retentionsettingcontroller.disableForNotMatchedFolders'
 			],
 			'retentionsettingcontroller',
-			'retention settings',
+			gRetentionSettingControllerPanelLabel,
 			'chrome://retentionsettingcontroller/content/configPanel.xul'
 		);
 }, false);
