@@ -228,7 +228,7 @@ StartupService.prototype = {
 	{
 		var settings;
 		try {
-			settings = eval(aJSON);
+			settings = eval(aJSON) || [];
 		}
 		catch(e) {
 			settings = [];

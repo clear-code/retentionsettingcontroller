@@ -41,24 +41,6 @@
 	</box>
 </prefpane>
 
-<script type="application/x-javascript"><![CDATA[
-
-var gSettingsHolder;
-
-function init()
-{
-	gSettingsHolder = document.getElementById('extensions.retentionsettingcontroller.settings-textbox');
-	RetentionSettingControllerUI.initFromSettings(gSettingsHolder.value);
-}
-
-function onChange()
-{
-	gSettingsHolder.value = RetentionSettingControllerUI.getSettings();
-	var event = document.createEvent('UIEvents');
-	event.initUIEvent('input', true, false, window, 0);
-	gSettingsHolder.dispatchEvent(event);
-}
-
-]]></script>
+<script type="application/x-javascript" src="chrome://retentionsettingcontroller/content/config.js"/>
 
 </prefwindow>

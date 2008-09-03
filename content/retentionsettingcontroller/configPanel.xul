@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/"?>
+<?xul-overlay href="chrome://retentionsettingcontroller/content/config.xul"?>
+<prefwindow id="retentionSettings-config"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	onload="init()">
+<prefpane id="prefpane-general"/>
+<script type="application/x-javascript" src="chrome://retentionsettingcontroller/content/config.js"/>
+<script type="application/x-javascript" src="chrome://admincustom/content/accountmanager/prefwindow.js"/>
+<script type="application/x-javascript"><![CDATA[
+window.addEventListener('load', function() {
+	window.removeEventListener('load', arguments.callee, false);
+	initContents(true);
+}, false);
+]]></script>
+</prefwindow>

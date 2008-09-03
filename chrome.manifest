@@ -3,5 +3,7 @@ content	retentionsettingcontroller	jar:chrome/retentionsettingcontroller.jar!/co
 overlay	chrome://messenger/content/messenger.xul	chrome://retentionsettingcontroller/content/messengerOverlay.xul
 overlay	chrome://messenger/content/folderProps.xul	chrome://retentionsettingcontroller/content/folderPropsOverlay.xul
 
+overlay	chrome://messenger/content/AccountManager.xul	chrome://retentionsettingcontroller/content/AccountManager.xul
+
 locale	retentionsettingcontroller	en-US	jar:chrome/retentionsettingcontroller.jar!/locale/en-US/retentionsettingcontroller/
 locale	retentionsettingcontroller	ja	jar:chrome/retentionsettingcontroller.jar!/locale/ja/retentionsettingcontroller/

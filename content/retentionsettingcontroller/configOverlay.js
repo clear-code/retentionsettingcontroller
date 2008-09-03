@@ -123,7 +123,7 @@ var RetentionSettingControllerUI = {
 	initFromSettings : function(aSettingsArray)
 	{
 		try {
-			aSettingsArray = eval(aSettingsArray);
+			aSettingsArray = eval(aSettingsArray) || [];
 		}
 		catch(e) {
 			aSettingsArray = [];
