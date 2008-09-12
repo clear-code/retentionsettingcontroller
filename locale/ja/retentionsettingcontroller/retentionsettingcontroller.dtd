@@ -1,5 +1,6 @@
 <!ENTITY add                              "新しい設定を追加">
 <!ENTITY remove                           "この設定を削除">
+<!ENTITY changeName                       "タブをダブルクリックすると名前を変更できます。">
 <!ENTITY pattern                          "設定を適用するフォルダの名前：">
 <!ENTITY pattern.desc                     "※正規表現で指定してください">
 <!ENTITY desc                             "古いメッセージを恒久的に削除してディスク領域を開放できます。">

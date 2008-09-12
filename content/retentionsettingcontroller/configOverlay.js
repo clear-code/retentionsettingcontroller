@@ -12,6 +12,10 @@ var RetentionSettingControllerUI = {
 	{
 		return document.getElementById('tabpanels');
 	},
+	get bundle()
+	{
+		return document.getElementById('retentionsettingcontroller-bundle');
+	},
 
 	get selectedTab()
 	{
@@ -38,7 +42,7 @@ var RetentionSettingControllerUI = {
 		var id = this.tabContainer.childNodes.length+1;
 
 		var tab = document.createElement('tab');
-		tab.setAttribute('label', id);
+		tab.setAttribute('label', this.bundle.getString('default_name'));
 		this.tabContainer.appendChild(tab);
 
 		var panel = this.createNewContents();
@@ -77,7 +81,8 @@ var RetentionSettingControllerUI = {
 				retainByPreference     : 1,
 				numHeadersToKeep       : 30,
 				daysToKeepHdrs         : 30,
-				keepUnreadMessagesOnly : false
+				keepUnreadMessagesOnly : false,
+				name                   : this.bundle.getString('default_name')
 			});
 		}
 	},
@@ -100,6 +105,8 @@ var RetentionSettingControllerUI = {
 
 	setSettingsToTab : function(aTab, aSettings)
 	{
+		if (aSettings.name)
+			aTab.setAttribute('label', aSettings.name);
 		var panel = this.getPanelFromTab(aTab);
 		this.getItemForSetting(panel, 'pattern').value = aSettings.pattern;
 		this.getItemForSetting(panel, 'retainByPreference').value = aSettings.retainByPreference;
@@ -112,6 +119,7 @@ var RetentionSettingControllerUI = {
 	{
 		var panel = this.getPanelFromTab(aTab);
 		return {
+			name : aTab.getAttribute('label'),
 			pattern : this.getItemForSetting(panel, 'pattern').value,
 			retainByPreference : parseInt(this.getItemForSetting(panel, 'retainByPreference').value),
 			numHeadersToKeep : parseInt(this.getItemForSetting(panel, 'numHeadersToKeep').value),
@@ -148,5 +156,49 @@ var RetentionSettingControllerUI = {
 					return this.getSettingsFromTab(aTab);
 				}, this);
 		return settingsArray.toSource();
+	},
+
+
+	readyToChangeTabName : function(aTab)
+	{
+		if (this._inputField) {
+			this.applyNewName();
+		}
+		if (aTab.localName != 'tab') return;
+		this._inputField = document.createElement('textbox');
+		this._inputField.setAttribute('onkeypress', 'RetentionSettingControllerUI.onKeyPress(event);');
+		this._inputField.setAttribute('onclick', 'event.stopPropagation();');
+		this._inputField.setAttribute('ondblclick', 'event.stopPropagation();');
+		this._inputField.setAttribute('input', 'event.stopPropagation();');
+		this._inputField.setAttribute('style', 'margin:0;padding:0;line-height:1;');
+		this._inputField.setAttribute('value', aTab.getAttribute('label'));
+		aTab.setAttribute('label', '');
+		aTab.appendChild(this._inputField);
+		this._inputField.select();
+		this._inputField.focus();
+	},
+	_inputField : null,
+	applyNewName : function()
+	{
+		if (!this._inputField) return;
+		var name = this._inputField.value;
+		var tab = this._inputField.parentNode;
+		tab.removeChild(this._inputField);
+		tab.setAttribute('label', name.replace(/^\s+|\s+$/g, ''));
+		this._inputField = null;
+		var event = document.createEvent('HTMLEvents');
+		event.initEvent ('change', true, true);
+		tab.dispatchEvent (event);
+	},
+
+	onKeyPress : function(aEvent)
+	{
+		switch (aEvent.keyCode)
+		{
+			case aEvent.DOM_VK_ENTER:
+			case aEvent.DOM_VK_RETURN:
+				this.applyNewName();
+				return;
+		}
 	}
 };

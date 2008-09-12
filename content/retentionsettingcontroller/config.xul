@@ -26,7 +26,8 @@
 
 	<box id="container"
 		oninput="onChange()"
-		oncommand="onChange()"/>
+		oncommand="onChange()"
+		onchange="onChange()"/>
 
 	<checkbox id="extensions.retentionsettingcontroller.inheritFromParent-check"
 		preference="extensions.retentionsettingcontroller.inheritFromParent"

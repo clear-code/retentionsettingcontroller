@@ -8,6 +8,10 @@
 
 <box id="container" orient="vertical">
 	<script src="chrome://retentionsettingcontroller/content/configOverlay.js"/>
+	<stringbundleset>
+		<stringbundle id="retentionsettingcontroller-bundle"
+			src="chrome://retentionsettingcontroller/locale/retentionsettingcontroller.properties"/>
+	</stringbundleset>
 
 	<box id="template" collapsed="true">
 		<vbox>
@@ -70,15 +74,16 @@
 	</box>
 
 	<hbox>
+		<description value="&changeName;"/>
 		<spacer flex="1"/>
 		<button label="&add;"
 			oncommand="RetentionSettingControllerUI.addTab();"/>
 	</hbox>
-	<tabbox orient="vertical" flex="1">
-		<tabs orient="horizontal" id="tabs">
-		</tabs>
-		<tabpanels flex="1" id="tabpanels">
-		</tabpanels>
+	<tabbox orient="vertical" flex="1"
+		onclick="RetentionSettingControllerUI.applyNewName();">
+		<tabs orient="horizontal" id="tabs"
+			ondblclick="RetentionSettingControllerUI.readyToChangeTabName(event.target);"/>
+		<tabpanels flex="1" id="tabpanels"/>
 	</tabbox>
 </box>
 
