@@ -236,10 +236,15 @@ StartupService.prototype = {
 		settings.forEach(function(aSetting) {
 			var regexp = aSetting.pattern;
 			if (!regexp) regexp = '[^\\w\\W]';
-			aSetting.pattern = new RegExp(regexp, 'i');
-		});
+			var match = regexp.match(this.regExpPattern);
+			aSetting.pattern = new RegExp(
+				(match ? match[1] : regexp ),
+				(match ? match[2] : 'i' )
+			);
+		}, this);
 		return settings;
 	},
+	regExpPattern : /^\/((?:\\.|\[(?:\\.|[^\]])*\]|[^\/])+)\/([gimy]*)$/,
 
 	get inheritFromParent()
 	{
