@@ -62,7 +62,7 @@ var RetentionSettingControllerUI = {
 	removeTab : function(aTab)
 	{
 		var panel = this.getPanelFromTab(aTab);
-		this.tabContainer.removeChild(aNode);
+		this.tabContainer.removeChild(aTab);
 		this.panelContainer.removeChild(panel);
 	},
 
