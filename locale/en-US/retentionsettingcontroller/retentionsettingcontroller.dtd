@@ -1,0 +1,22 @@
+<!ENTITY add                              "Add New Setting">
+<!ENTITY remove                           "Delete This Setting">
+<!ENTITY changeName                       "Double-click on a tab, to change its name.">
+<!ENTITY pattern                          "Pattern for Target Folders:">
+<!ENTITY pattern.desc                     "*Specify folder names by a regular expression.">
+<!ENTITY desc                             "To recover disk space, old messages can be permanently deleted">
+<!ENTITY retainByPreference.1             "Don't delete any messages">
+<!ENTITY retainByPreference.1.accesskey   "A">
+<!ENTITY retainByPreference.3             "Delete all but the last">
+<!ENTITY retainByPreference.3.accesskey   "l">
+<!ENTITY numHeadersToKeep                 "messages">
+<!ENTITY retainByPreference.2             "Delete messages more than">
+<!ENTITY retainByPreference.2.accesskey   "m">
+<!ENTITY daysToKeepHdrs                   "days old">
+<!ENTITY keepUnreadMessagesOnly           "Always delete read messages">
+<!ENTITY keepUnreadMessagesOnly.accesskey "r">
+
+<!ENTITY config.title                       "Retention Settings">
+<!ENTITY config.inheritFromParent           "Inherit settings from ancestor folders">
+<!ENTITY config.disableForNotMatchedFolders "Apply server's retention settings if no rule is match to the folder">
+
+<!ENTITY panel.label                        "Retention Settings">
