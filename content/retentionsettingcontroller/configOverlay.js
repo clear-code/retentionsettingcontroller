@@ -108,7 +108,10 @@ var RetentionSettingControllerUI = {
 	removeCurrentTab : function(aTab)
 	{
 		if (this.tabContainer.childNodes.length > 1) {
-			this.removeTab(this.selectedTab);
+			var tab = this.selectedTab.nextSibling || this.selectedTab.previousSibling;
+			var selected = this.selectedTab;
+			this.selectedTab = tab;
+			this.removeTab(selected);
 		}
 		else {
 			this.setSettingsToTab(this.selectedTab, {
