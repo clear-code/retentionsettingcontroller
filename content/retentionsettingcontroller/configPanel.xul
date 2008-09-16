@@ -36,8 +36,7 @@
 <?xml-stylesheet href="chrome://global/skin/"?>
 <?xul-overlay href="chrome://retentionsettingcontroller/content/config.xul"?>
 <prefwindow id="retentionSettings-config"
-	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
-	onload="init()">
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 <prefpane id="prefpane-general"/>
 <script type="application/x-javascript" src="chrome://retentionsettingcontroller/content/config.js"/>
 <script type="application/x-javascript" src="chrome://admincustom/content/accountmanager/prefwindow.js"/>

@@ -41,10 +41,9 @@
 ]>
 <prefwindow id="retentionSettings-config"
 	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
-	title="&config.title;"
-	onload="init()">
+	title="&config.title;">
 
-<prefpane id="prefpane-general">
+<prefpane id="prefpane-general" onpaneload="init()">
 	<preferences>
 		<preference id="extensions.retentionsettingcontroller.settings"
 			name="extensions.retentionsettingcontroller.settings"
