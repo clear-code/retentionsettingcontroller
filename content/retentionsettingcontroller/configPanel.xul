@@ -34,16 +34,52 @@
    -
    - ***** END LICENSE BLOCK ***** -->
 <?xml-stylesheet href="chrome://global/skin/"?>
-<?xul-overlay href="chrome://retentionsettingcontroller/content/config.xul"?>
+<?xul-overlay href="chrome://retentionsettingcontroller/content/configOverlay.xul"?>
+<!DOCTYPE prefwindow SYSTEM "chrome://retentionsettingcontroller/locale/retentionsettingcontroller.dtd">
 <prefwindow id="retentionSettings-config"
 	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
-<prefpane id="prefpane-general"/>
+
+<prefpane id="prefpane-general">
+	<preferences>
+		<preference id="extensions.retentionsettingcontroller.settings"
+			name="extensions.retentionsettingcontroller.settings"
+			type="string"/>
+		<preference id="extensions.retentionsettingcontroller.inheritFromParent"
+			name="extensions.retentionsettingcontroller.inheritFromParent"
+			type="bool"/>
+		<preference id="extensions.retentionsettingcontroller.disableForNotMatchedFolders"
+			name="extensions.retentionsettingcontroller.disableForNotMatchedFolders"
+			type="bool"/>
+	</preferences>
+
+	<box id="container"
+		oninput="onChange()"
+		oncommand="onChange()"
+		onchange="onChange()"/>
+
+	<checkbox id="extensions.retentionsettingcontroller.inheritFromParent-check"
+		preference="extensions.retentionsettingcontroller.inheritFromParent"
+		label="&config.inheritFromParent;"/>
+	<checkbox id="extensions.retentionsettingcontroller.disableForNotMatchedFolders-check"
+		preference="extensions.retentionsettingcontroller.disableForNotMatchedFolders"
+		label="&config.disableForNotMatchedFolders;"/>
+
+	<box collapsed="true">
+		<textbox id="extensions.retentionsettingcontroller.settings-textbox"
+			preference="extensions.retentionsettingcontroller.settings"/>
+	</box>
+</prefpane>
+
+<script type="application/x-javascript" src="chrome://retentionsettingcontroller/content/config.js"/>
+
 <script type="application/x-javascript" src="chrome://retentionsettingcontroller/content/config.js"/>
 <script type="application/x-javascript" src="chrome://admincustom/content/accountmanager/prefwindow.js"/>
 <script type="application/x-javascript"><![CDATA[
 window.addEventListener('load', function() {
 	window.removeEventListener('load', arguments.callee, false);
 	initContents(true);
+	window.setTimeout(init, 0);
 }, false);
 ]]></script>
+
 </prefwindow>
