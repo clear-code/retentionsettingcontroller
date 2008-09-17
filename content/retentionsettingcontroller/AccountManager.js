@@ -33,8 +33,8 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-window.addEventListener('DOMContentLoaded', function() {
-	window.removeEventListener('DOMContentLoaded', arguments.callee, false);
+window.addEventListener('load', function() {
+	window.removeEventListener('load', arguments.callee, false);
 
 	if ('registerExtraPanelForPref' in window)
 		registerExtraPanelForPref(
