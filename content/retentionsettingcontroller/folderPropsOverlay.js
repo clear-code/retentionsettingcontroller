@@ -36,6 +36,11 @@
 window.addEventListener('DOMContentLoaded', function() {
 	window.removeEventListener('DOMContentLoaded', arguments.callee, false);
 
+	var Prefs = Components
+			.classes['@mozilla.org/preferences;1']
+			.getService(Components.interfaces.nsIPrefBranch);
+	if (!Prefs.getBoolPref('extensions.retentionsettingcontroller.hideRetentionSettings')) return;
+
 	var hiddenBox = document.createElement('box');
 	hiddenBox.setAttribute('hidden', true);
 
