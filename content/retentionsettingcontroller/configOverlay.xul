@@ -60,7 +60,7 @@
 							control-prefid="pattern"/>
 						<textbox prefid="pattern"/>
 					</row>
-					<row align="center">
+					<row class="pattern-description" align="center">
 						<spacer/>
 						<description>&pattern.desc;</description>
 					</row>
@@ -114,7 +114,8 @@
 			oncommand="RetentionSettingControllerUI.addTab();"/>
 	</hbox>
 	<tabbox orient="vertical" flex="1"
-		onclick="RetentionSettingControllerUI.applyNewName();">
+		onclick="RetentionSettingControllerUI.applyNewName();"
+		class="retentionsettingcontroller-tabbox">
 		<tabs orient="horizontal" id="tabs"
 			ondblclick="RetentionSettingControllerUI.readyToChangeTabName(event.target);"/>
 		<tabpanels flex="1" id="tabpanels"/>
