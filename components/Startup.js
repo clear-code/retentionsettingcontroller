@@ -68,6 +68,7 @@ StartupService.prototype = {
 				return;
 
 			case 'retentionsettingcontroller:messengerStartup':
+				this.init();
 				if (this.onStartup) {
 					this.onStartup = false;
 					this.updateAllFolders();
@@ -84,9 +85,19 @@ StartupService.prototype = {
 				ObserverService.removeObserver(this, 'retentionsettingcontroller:folderChanged');
 				ObserverService.removeObserver(this, 'quit-application');
 				return;
+
+			case 'nsPref:changed':
+				this.onChangePref(aData);
+				return;
 		}
 	},
 	onStartup : true,
+
+	init : function()
+	{
+		var pbi = Prefs.QueryInterface(Components.interfaces.nsIPrefBranchInternal);
+		pbi.addObserver(this.domain, this, false);
+	},
 
 	get servers()
 	{
@@ -306,6 +317,25 @@ StartupService.prototype = {
 		return aValue;
 	},
 	_disableForNotMatchedFolders : null,
+
+
+	domain : 'extensions.retentionsettingcontroller',
+	onChangePref : function(aPref) 
+	{
+		switch (aPref)
+		{
+			case 'extensions.retentionsettingcontroller.settings':
+				this.customSettings = null;
+				break;
+			case 'extensions.retentionsettingcontroller.inheritFromParent':
+				this.inheritFromParent = null;
+				break;
+			case 'extensions.retentionsettingcontroller.disableForNotMatchedFolders':
+				this.disableForNotMatchedFolders = null;
+				break;
+		}
+		this.updateAllFolders();
+	},
 
 
 	QueryInterface : function(aIID) 
