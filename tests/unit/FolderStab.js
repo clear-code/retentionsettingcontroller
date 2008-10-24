@@ -47,3 +47,17 @@ FolderStab.prototype = {
 	}
 };
 
+function createFolderStab()
+{
+	var folder = new FolderStab('ルート');
+
+	var child = folder._appendChild(new FolderStab('子1'));
+	child._appendChild(new FolderStab('孫1'));
+	child._appendChild(new FolderStab('孫2'));
+
+	child = folder._appendChild(new FolderStab('子2'));
+	child._appendChild(new FolderStab('孫3'));
+	child._appendChild(new FolderStab('孫4'));
+
+	return folder;
+}

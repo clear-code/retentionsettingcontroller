@@ -1,56 +1,6 @@
 utils.include('../../components/Startup.js');
 utils.include('FolderStab.js');
-
-function createSettingsStab()
-{
-	return [
-		{
-			pattern                : '子1',
-			useServerDefaults      : false,
-			retainByPreference     : 0,
-			daysToKeepHdrs         : 3,
-			numHeadersToKeep       : 1,
-			keepUnreadMessagesOnly : false,
-			cleanupBodiesByDays    : false,
-			daysToKeepBodies       : 3
-		},
-		{
-			pattern                : '孫[34]',
-			useServerDefaults      : false,
-			retainByPreference     : 0,
-			daysToKeepHdrs         : 60,
-			numHeadersToKeep       : 200,
-			keepUnreadMessagesOnly : true,
-			cleanupBodiesByDays    : true,
-			daysToKeepBodies       : 60
-		},
-		{
-			pattern                : '',
-			useServerDefaults      : true,
-			retainByPreference     : 0,
-			daysToKeepHdrs         : 60,
-			numHeadersToKeep       : 200,
-			keepUnreadMessagesOnly : true,
-			cleanupBodiesByDays    : true,
-			daysToKeepBodies       : 60
-		}
-	];
-}
-
-function createFolderStab()
-{
-	var folder = new FolderStab('ルート');
-
-	var child = folder._appendChild(new FolderStab('子1'));
-	child._appendChild(new FolderStab('孫1'));
-	child._appendChild(new FolderStab('孫2'));
-
-	child = folder._appendChild(new FolderStab('子2'));
-	child._appendChild(new FolderStab('孫3'));
-	child._appendChild(new FolderStab('孫4'));
-
-	return folder;
-}
+utils.include('SettingsStab.js');
 
 var service;
 
